@@ -32,3 +32,16 @@ The code is designed for rapid and efficient psychophysical threshold estimation
    Open MATLAB, navigate to the repository folder, and run:
    ```matlab
    demo_loudness_threshold_and_plot
+The script will run an experiment where a 440 Hz tone is played repeatedly with adaptive amplitude scaling. After the experiment, a plot of the staircase (loudness level vs. trial index) is displayed, and the results are saved to a .mat file.
+	3.	Customizing the Code:
+You may modify parameters such as the down/up criteria, initial stimulus level, step sizes, and number of trials to suit your experimental design.
+
+Citation
+
+If you use this code in your research, please cite the original paper:
+
+	Taylor, M. M., & Creelman, C. D. (1967). PEST: Efficient Estimates on Probability Functions. The Journal of the Acoustical Society of America, 41(3), 782–787. https://doi.org/10.1121/1.1910407
+
+License
+
+This software is released under the Non-Commercial License (see LICENSE). Use of this code is permitted only for non-commercial research and educational purposes. Commercial use is strictly prohibited without prior written consent from the copyright holder.
