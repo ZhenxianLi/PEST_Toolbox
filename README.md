@@ -26,7 +26,7 @@ The code is designed for rapid and efficient psychophysical threshold estimation
 ## How to Use
 
 1. **Prerequisites:**  
-   Ensure that MATLAB (or Octave) is installed and that `updateDiff_NdownMup.m` is on your MATLAB path.
+   Ensure that MATLAB (or Octave) is installed and that `updateDiff_PEST.m` is on your MATLAB path.
 
 2. **Running the Demo:**  
    Open MATLAB, navigate to the repository folder, and run:
