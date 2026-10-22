@@ -29,3 +29,34 @@ jobs:
         run: >
           octave-cli --no-gui --eval
           "addpath(fullfile(pwd, 'toolbox')); run(fullfile(pwd, 'tests', 'testPest.m')); disp('All tests passed.')"
+
+  python:
+    name: Python ${{ matrix.python-version }}${{ matrix.psychopy && ' + PsychoPy' || '' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python-version: "3.9"
+          - python-version: "3.13"
+          - python-version: "3.12"
+            psychopy: true
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Check the license copy is up to date
+        run: cmp ../LICENSE LICENSE
+      - name: Install PsychoPy (minimal dependencies for psychopy.data)
+        if: matrix.psychopy
+        run: |
+          pip install numpy pandas packaging six json_tricks i18next
+          pip install --no-deps psychopy
+      - name: Install the plugin
+        run: pip install ".[test]"
+      - name: Run tests
+        run: python -m pytest -v

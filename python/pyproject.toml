@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "psychopy-pest"
+description = "PEST adaptive staircase (Taylor & Creelman, 1967) as a PsychoPy plugin"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Zhenxian Li" }]
+requires-python = ">=3.9"
+dynamic = ["version"]
+keywords = ["psychopy", "psychophysics", "staircase", "PEST", "threshold"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "License :: Free for non-commercial use",
+]
+# PsychoPy is deliberately not a dependency: the plugin runs inside an
+# existing PsychoPy installation, and the PEST class needs nothing.
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/ZhenxianLi/PEST_Toolbox"
+Issues = "https://github.com/ZhenxianLi/PEST_Toolbox/issues"
+
+[project.entry-points."psychopy.data"]
+PESTHandler = "psychopy_pest.handler:PESTHandler"
+
+[tool.setuptools.dynamic]
+version = { attr = "psychopy_pest.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

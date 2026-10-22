@@ -3,6 +3,8 @@
 
 *.m    text diff=matlab
 *.md   text
+*.py   text diff=python
+*.toml text
 *.cff  text
 *.yml  text
 

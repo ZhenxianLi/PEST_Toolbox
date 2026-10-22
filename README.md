@@ -4,7 +4,8 @@
 
 A MATLAB/GNU Octave implementation of **PEST** (Parameter Estimation by
 Sequential Testing), the adaptive staircase of Taylor & Creelman (1967), for
-fast psychophysical threshold estimation.
+fast psychophysical threshold estimation. A Python version is included as a
+[PsychoPy plugin](#psychopy-plugin).
 
 > Taylor, M. M., & Creelman, C. D. (1967). PEST: Efficient estimates on
 > probability functions. *The Journal of the Acoustical Society of America*,
@@ -84,6 +85,19 @@ Both examples are in `toolbox/examples`:
 - `demoLoudnessThreshold` measures the yes/no detection threshold of a 440 Hz
   tone in dB re full scale. Use headphones and fix the system volume first.
 
+## PsychoPy plugin
+
+The [`python`](python) folder contains `psychopy-pest`, a PsychoPy plugin that
+adds the same procedure as `psychopy.data.PESTHandler`, plus a
+dependency-free `PEST` class. It gives identical results to the MATLAB
+functions. Install it into the Python environment that runs PsychoPy:
+
+```bash
+pip install "psychopy-pest @ git+https://github.com/ZhenxianLi/PEST_Toolbox#subdirectory=python"
+```
+
+See [`python/README.md`](python/README.md) for usage.
+
 ## Tests
 
 In MATLAB:
@@ -96,6 +110,12 @@ In Octave:
 
 ```matlab
 addpath(fullfile(pwd, 'toolbox')); run(fullfile(pwd, 'tests', 'testPest.m'))
+```
+
+Python (from the `python` folder):
+
+```bash
+pip install -e ".[test]" && pytest
 ```
 
 ## Citation
