@@ -96,7 +96,9 @@ functions. Install it into the Python environment that runs PsychoPy:
 pip install "psychopy-pest @ git+https://github.com/ZhenxianLi/PEST_Toolbox#subdirectory=python"
 ```
 
-See [`python/README.md`](python/README.md) for usage.
+See [`python/README.md`](python/README.md) for usage, and
+[`python/PUBLISHING.md`](python/PUBLISHING.md) for how it is released to PyPI
+and submitted to the PsychoPy plugin registry.
 
 ## Tests
 

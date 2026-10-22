@@ -84,6 +84,10 @@ The handler tests run when PsychoPy is installed and are skipped otherwise.
 [`examples/simulated_observer.py`](https://github.com/ZhenxianLi/PEST_Toolbox/blob/main/python/examples/simulated_observer.py) runs both classes against a simulated
 observer.
 
+Releasing new versions to PyPI and the listing in the PsychoPy plugin
+manager are described in
+[PUBLISHING.md](https://github.com/ZhenxianLi/PEST_Toolbox/blob/main/python/PUBLISHING.md).
+
 ## License
 
 Non-commercial research and educational use only; see [LICENSE](https://github.com/ZhenxianLi/PEST_Toolbox/blob/main/LICENSE).
