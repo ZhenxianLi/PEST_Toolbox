@@ -88,7 +88,7 @@ Both examples are in `toolbox/examples`:
 ## PsychoPy plugin
 
 The [`python`](python) folder contains `psychopy-pest`, a PsychoPy plugin that
-adds the same procedure as `psychopy.data.PESTHandler`, plus a
+adds the same procedure as `psychopy.data.PestHandler`, plus a
 dependency-free `PEST` class. It gives identical results to the MATLAB
 functions. Install it into the Python environment that runs PsychoPy:
 

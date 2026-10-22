@@ -8,23 +8,23 @@ pytest.importorskip("psychopy.data")
 
 from psychopy import data, plugins  # noqa: E402
 
-from psychopy_pest import PEST, PESTHandler  # noqa: E402
+from psychopy_pest import PEST, PestHandler  # noqa: E402
 
 
 def test_plugin_registers_handler_in_psychopy_data():
     plugins.scanPlugins()
     assert plugins.loadPlugin("psychopy-pest")
-    assert data.PESTHandler is PESTHandler
+    assert data.PestHandler is PestHandler
 
 
 def test_handler_is_a_stair_handler():
-    assert issubclass(PESTHandler, data.StairHandler)
+    assert issubclass(PestHandler, data.StairHandler)
 
 
 def test_handler_follows_the_pest_algorithm():
     responses = [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0]
     kwargs = dict(startVal=0, startStepSize=8, minStepSize=1, maxStepSize=32)
-    handler = PESTHandler(**kwargs, autoLog=False)
+    handler = PestHandler(**kwargs, autoLog=False)
     pest = PEST(initial_level=0, initial_step_size=8, min_step_size=1,
                 max_step_size=32)
 
@@ -46,7 +46,7 @@ def test_handler_follows_the_pest_algorithm():
 
 
 def test_iteration_stops_when_run_finishes():
-    handler = PESTHandler(startVal=0, startStepSize=2, minStepSize=1,
+    handler = PestHandler(startVal=0, startStepSize=2, minStepSize=1,
                           decisionRule="updown", nDown=1, nUp=1,
                           autoLog=False)
     responses = iter([1, 0, 1])
@@ -60,14 +60,14 @@ def test_iteration_stops_when_run_finishes():
 
 
 def test_threshold_is_nan_until_finished():
-    handler = PESTHandler(startVal=0, autoLog=False)
+    handler = PestHandler(startVal=0, autoLog=False)
     next(handler)
     handler.addResponse(1)
     assert math.isnan(handler.threshold)
 
 
 def test_custom_intensity_replaces_presented_level():
-    handler = PESTHandler(startVal=0, startStepSize=4, decisionRule="updown",
+    handler = PestHandler(startVal=0, startStepSize=4, decisionRule="updown",
                           nDown=1, nUp=1, autoLog=False)
     next(handler)
     handler.addResponse(1, intensity=10)
@@ -76,7 +76,7 @@ def test_custom_intensity_replaces_presented_level():
 
 
 def test_saves_like_a_stair_handler(tmp_path):
-    handler = PESTHandler(startVal=0, maxTrials=5, autoLog=False)
+    handler = PestHandler(startVal=0, maxTrials=5, autoLog=False)
     for _ in handler:
         handler.addResponse(1)
     handler.saveAsText(str(tmp_path / "run.tsv"))

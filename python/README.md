@@ -2,7 +2,7 @@
 
 A [PsychoPy](https://www.psychopy.org) plugin that adds **PEST** (Parameter
 Estimation by Sequential Testing; Taylor & Creelman, 1967) as
-`psychopy.data.PESTHandler`, alongside PsychoPy's own `StairHandler` and
+`psychopy.data.PestHandler`, alongside PsychoPy's own `StairHandler` and
 `QuestHandler`.
 
 > Taylor, M. M., & Creelman, C. D. (1967). PEST: Efficient estimates on
@@ -36,12 +36,12 @@ plugins.scanPlugins()             # find newly installed plugins
 plugins.loadPlugin('psychopy-pest')
 from psychopy import data
 
-staircase = data.PESTHandler(
+staircase = data.PestHandler(
     startVal=-20,         # intensity of the first trial
     startStepSize=8,
     minStepSize=1,        # run ends when a reversal halves the step below this
     maxStepSize=16,
-    targetProb=0.75,      # Wald test target
+    pThreshold=0.75,      # Wald test target
     waldLimit=1)
 
 for intensity in staircase:          # stops when the PEST run ends
@@ -52,7 +52,7 @@ print(staircase.threshold)
 staircase.saveAsExcel('pest_run.xlsx')
 ```
 
-`PESTHandler` is a subclass of `StairHandler`, so `addOtherData`, the
+`PestHandler` is a subclass of `StairHandler`, so `addOtherData`, the
 `saveAs*` methods and `ExperimentHandler.addLoop` work as usual. A correct
 response steps the intensity **down**, and steps are linear: express the
 intensity in the unit PEST should step in (for example, dB).
@@ -81,9 +81,9 @@ pytest
 ```
 
 The handler tests run when PsychoPy is installed and are skipped otherwise.
-`examples/simulated_observer.py` runs both classes against a simulated
+[`examples/simulated_observer.py`](https://github.com/ZhenxianLi/PEST_Toolbox/blob/main/python/examples/simulated_observer.py) runs both classes against a simulated
 observer.
 
 ## License
 
-Non-commercial research and educational use only; see [LICENSE](LICENSE).
+Non-commercial research and educational use only; see [LICENSE](https://github.com/ZhenxianLi/PEST_Toolbox/blob/main/LICENSE).
