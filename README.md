@@ -1,47 +1,109 @@
-# PEST: Parameter Estimation by Sequential Testing (Non-Commercial)
+# PEST Toolbox
 
-This repository contains a MATLAB implementation of the PEST (Parameter Estimation by Sequential Testing) algorithm based on the paper:
+[![CI](https://github.com/ZhenxianLi/PEST_Toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/ZhenxianLi/PEST_Toolbox/actions/workflows/ci.yml)
 
-> **PEST: Efficient Estimates on Probability Functions**  
-> M. M. Taylor & C. D. Creelman, *Journal of the Acoustical Society of America*, 41, 782–787 (1967)  
-> [DOI:10.1121/1.1910407](https://doi.org/10.1121/1.1910407)
+A MATLAB/GNU Octave implementation of **PEST** (Parameter Estimation by
+Sequential Testing), the adaptive staircase of Taylor & Creelman (1967), for
+fast psychophysical threshold estimation.
 
-The code is designed for rapid and efficient psychophysical threshold estimation. Although the original implementation was used for speed perception experiments, this version has been adapted to measure a loudness threshold using a 440 Hz sine tone. It uses an adaptive staircase procedure (N-down/M-up + PEST) to converge on a target threshold.
+> Taylor, M. M., & Creelman, C. D. (1967). PEST: Efficient estimates on
+> probability functions. *The Journal of the Acoustical Society of America*,
+> 41(4A), 782–787. https://doi.org/10.1121/1.1910407
 
-## Repository Contents
+## The PEST procedure
 
-- **updateDiff_NdownMup.m**  
-  The main PEST function that implements the adaptive algorithm. It updates the stimulus level (e.g., loudness level in dB) and the step size based on participant responses according to the PEST rules.
+**When to change level.** Trials stay at one level until a sequential
+(Wald) test says the level is too easy or too hard. After `T` trials with
+`Nc` correct responses at the current level, with target probability `Pt`
+and deviation limit `W`:
 
-- **demo_loudness_threshold_and_plot.m**  
-  A combined demonstration script that:
-  1. Presents a 440 Hz tone with amplitude scaled according to the current stimulus level.
-  2. Collects participant responses (e.g., “heard” or “not heard”).
-  3. Updates the stimulus level using the PEST function.
-  4. Saves and plots the staircase results.
+- `Nc - Pt*T >= W`  → too easy, step **down**;
+- `Nc - Pt*T <= -W` → too hard, step **up**;
+- otherwise present another trial at the same level.
 
-- **LICENSE**  
-  A non-commercial license under which this code is released (see below).
+A simplified N-down/M-up rule is also available (`'DecisionRule', 'updown'`).
 
-## How to Use
+**How big a step.**
 
-1. **Prerequisites:**  
-   Ensure that MATLAB (or Octave) is installed and that `updateDiff_PEST.m` is on your MATLAB path.
+1. On every reversal of step direction, halve the step size.
+2. The second step in a given direction is the same size as the first.
+3. The fourth and subsequent steps in a given direction are each double
+   their predecessor.
+4. The third step in a given direction is doubled, unless the step just
+   before the most recent reversal resulted from a doubling.
+5. The step size never exceeds a maximum.
 
-2. **Running the Demo:**  
-   Open MATLAB, navigate to the repository folder, and run:
-   ```matlab
-   demo_loudness_threshold_and_plot
-The script will run an experiment where a 440 Hz tone is played repeatedly with adaptive amplitude scaling. After the experiment, a plot of the staircase (loudness level vs. trial index) is displayed, and the results are saved to a .mat file.
-	3.	Customizing the Code:
-You may modify parameters such as the down/up criteria, initial stimulus level, step sizes, and number of trials to suit your experimental design.
+**When to stop.** The run ends when a reversal would halve the step below the
+final (minimum) step size. The threshold estimate is the level the next trial
+would have used.
 
-Citation
+## Installation
 
-If you use this code in your research, please cite the original paper:
+Clone the repository and add the `toolbox` folder to the path:
 
-	Taylor, M. M., & Creelman, C. D. (1967). PEST: Efficient Estimates on Probability Functions. The Journal of the Acoustical Society of America, 41(3), 782–787. https://doi.org/10.1121/1.1910407
+```matlab
+addpath(fullfile(pwd, 'toolbox'))
+```
 
-License
+Requires MATLAB R2016b or later, or GNU Octave 7 or later. No other toolboxes
+are needed.
 
-This software is released under the Non-Commercial License (see LICENSE). Use of this code is permitted only for non-commercial research and educational purposes. Commercial use is strictly prohibited without prior written consent from the copyright holder.
+## Usage
+
+```matlab
+state = pestInit( ...
+    'InitialLevel', -20, ...
+    'InitialStepSize', 8, ...
+    'MinStepSize', 1, ...
+    'MaxStepSize', 16, ...
+    'TargetProbability', 0.75, ...
+    'WaldLimit', 1);
+
+while ~state.isFinished
+    isCorrect = presentTrial(state.level);   % your experiment code
+    state = pestUpdate(state, isCorrect);
+end
+
+fprintf('Threshold: %.2f\n', state.threshold);
+pestPlot(state);
+```
+
+A correct response makes the task harder, which PEST implements as a step
+**down** in level. Define the level so that lower values are harder (for
+example, sound level in dB); negate it otherwise.
+
+Run `help pestInit` for all options. `state.history` records the level,
+response, step and reversal of every trial.
+
+## Examples
+
+Both examples are in `toolbox/examples`:
+
+- `demoSimulatedObserver` runs PEST against a simulated observer, with no
+  hardware or responses needed.
+- `demoLoudnessThreshold` measures the yes/no detection threshold of a 440 Hz
+  tone in dB re full scale. Use headphones and fix the system volume first.
+
+## Tests
+
+In MATLAB:
+
+```matlab
+addpath('toolbox'); runtests('tests')
+```
+
+In Octave:
+
+```matlab
+addpath(fullfile(pwd, 'toolbox')); run(fullfile(pwd, 'tests', 'testPest.m'))
+```
+
+## Citation
+
+If you use this toolbox, please cite the original paper above. Citation
+metadata for the toolbox itself is in [`CITATION.cff`](CITATION.cff).
+
+## License
+
+Released under a non-commercial license; see [`LICENSE`](LICENSE). Use is
+permitted for non-commercial research and educational purposes only.

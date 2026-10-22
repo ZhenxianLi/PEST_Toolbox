@@ -1,2 +1,16 @@
-# Auto detect text files and perform LF normalization
+# Normalize line endings of text files
 * text=auto
+
+*.m    text diff=matlab
+*.md   text
+*.cff  text
+*.yml  text
+
+# MATLAB binary files
+*.mat  binary
+*.fig  binary
+*.mlx  binary
+*.mlapp binary
+*.mltbx binary
+*.slx  binary
+*.p    binary

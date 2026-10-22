@@ -1,0 +1,19 @@
+# Experiment results
+*.mat
+results/
+
+# MATLAB
+*.asv
+*.m~
+*.autosave
+*.mex*
+slprj/
+codegen/
+resources/project/
+
+# Octave
+octave-workspace
+
+# OS
+.DS_Store
+Thumbs.db
