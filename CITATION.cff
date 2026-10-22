@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it and the original PEST paper."
+title: "PEST Toolbox"
+version: 2.0.0
+authors:
+  - family-names: Li
+    given-names: Zhenxian
+repository-code: "https://github.com/ZhenxianLi/PEST_Toolbox"
+preferred-citation:
+  type: article
+  title: "PEST: Efficient estimates on probability functions"
+  authors:
+    - family-names: Taylor
+      given-names: M. M.
+    - family-names: Creelman
+      given-names: C. D.
+  journal: "The Journal of the Acoustical Society of America"
+  volume: 41
+  issue: "4A"
+  start: 782
+  end: 787
+  year: 1967
+  doi: "10.1121/1.1910407"

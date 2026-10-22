@@ -1,7 +1,7 @@
 Non-Commercial License for PEST MATLAB Implementation
 -------------------------------------------------------
 
-Copyright (c) 2025 [Zhenxian LI]
+Copyright (c) 2025 Zhenxian Li
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to use 
@@ -23,4 +23,5 @@ subject to the following conditions:
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 
-For any inquiries regarding commercial use, please contact though github.
+For any inquiries regarding commercial use, please open an issue on GitHub:
+https://github.com/ZhenxianLi/PEST_Toolbox/issues

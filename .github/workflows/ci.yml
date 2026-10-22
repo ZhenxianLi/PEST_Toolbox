@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  matlab:
+    name: MATLAB
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: matlab-actions/setup-matlab@v2
+      - uses: matlab-actions/run-tests@v2
+        with:
+          source-folder: toolbox
+          select-by-folder: tests
+
+  octave:
+    name: Octave
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Octave
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends octave
+      - name: Run tests
+        run: >
+          octave-cli --no-gui --eval
+          "addpath(fullfile(pwd, 'toolbox')); run(fullfile(pwd, 'tests', 'testPest.m')); disp('All tests passed.')"
