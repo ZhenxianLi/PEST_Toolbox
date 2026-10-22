@@ -1,5 +1,5 @@
 % PEST Toolbox
-% Version 2.0.0
+% Version 2.1.0
 %
 % Adaptive threshold estimation with PEST (Taylor & Creelman, 1967).
 %

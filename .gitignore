@@ -11,6 +11,15 @@ slprj/
 codegen/
 resources/project/
 
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+
 # Octave
 octave-workspace
 
