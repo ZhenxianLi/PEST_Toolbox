@@ -28,7 +28,7 @@ Homepage = "https://github.com/ZhenxianLi/PEST_Toolbox"
 Issues = "https://github.com/ZhenxianLi/PEST_Toolbox/issues"
 
 [project.entry-points."psychopy.data"]
-PESTHandler = "psychopy_pest.handler:PESTHandler"
+PestHandler = "psychopy_pest.handler:PestHandler"
 
 [tool.setuptools.dynamic]
 version = { attr = "psychopy_pest.__version__" }

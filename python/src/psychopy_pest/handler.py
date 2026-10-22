@@ -6,10 +6,10 @@ from psychopy.data import StairHandler
 
 from .pest import PEST
 
-__all__ = ["PESTHandler"]
+__all__ = ["PestHandler"]
 
 
-class PESTHandler(StairHandler):
+class PestHandler(StairHandler):
     """PEST staircase (Taylor & Creelman, 1967) as a PsychoPy trial handler.
 
     Use it like :class:`psychopy.data.StairHandler`: iterate over it to get
@@ -36,7 +36,7 @@ class PESTHandler(StairHandler):
     decisionRule : {'wald', 'updown'}
         ``'wald'`` (default) uses the sequential test of the original PEST;
         ``'updown'`` uses an N-down/M-up rule.
-    targetProb : float
+    pThreshold : float
         Probability of a correct response the run converges to ('wald').
     waldLimit : float
         Deviation limit W of the sequential test ('wald').
@@ -58,7 +58,7 @@ class PESTHandler(StairHandler):
         plugins.loadPlugin('psychopy-pest')
         from psychopy import data
 
-        staircase = data.PESTHandler(startVal=-20, startStepSize=8,
+        staircase = data.PestHandler(startVal=-20, startStepSize=8,
                                      minStepSize=1, maxStepSize=16)
         for intensity in staircase:
             isCorrect = runTrial(intensity)
@@ -67,7 +67,7 @@ class PESTHandler(StairHandler):
     """
 
     def __init__(self, startVal, startStepSize=8, minStepSize=1,
-                 maxStepSize=32, decisionRule="wald", targetProb=0.75,
+                 maxStepSize=32, decisionRule="wald", pThreshold=0.75,
                  waldLimit=1, nDown=2, nUp=1, maxTrials=None,
                  minVal=None, maxVal=None, extraInfo=None, originPath=None,
                  name="", autoLog=True, **kwargs):
@@ -80,7 +80,7 @@ class PESTHandler(StairHandler):
             max_level=math.inf if maxVal is None else maxVal,
             max_trials=maxTrials,
             decision_rule=decisionRule,
-            target_probability=targetProb,
+            target_probability=pThreshold,
             wald_limit=waldLimit,
             down_criterion=nDown,
             up_criterion=nUp)
@@ -91,7 +91,7 @@ class PESTHandler(StairHandler):
             autoLog=autoLog, **kwargs)
         self._nextIntensity = self._pest.level
         self.decisionRule = decisionRule
-        self.targetProb = targetProb
+        self.pThreshold = pThreshold
         self.waldLimit = waldLimit
         self.minStepSize = minStepSize
         self.maxStepSize = maxStepSize

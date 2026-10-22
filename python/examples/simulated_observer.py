@@ -34,18 +34,18 @@ def run_psychopy():
     try:
         from psychopy import plugins
     except ImportError:
-        print("PsychoPy is not installed; skipping PESTHandler.")
+        print("PsychoPy is not installed; skipping PestHandler.")
         return
     plugins.scanPlugins()  # find plugins installed since PsychoPy started
     plugins.loadPlugin("psychopy-pest")
     from psychopy import data
 
-    staircase = data.PESTHandler(startVal=0, startStepSize=8, minStepSize=0.5,
-                                 maxStepSize=16, targetProb=0.75,
+    staircase = data.PestHandler(startVal=0, startStepSize=8, minStepSize=0.5,
+                                 maxStepSize=16, pThreshold=0.75,
                                  maxTrials=500, autoLog=False)
     for intensity in staircase:
         staircase.addResponse(int(random.random() < p_correct(intensity)))
-    print(f"PESTHandler: {staircase.threshold:6.2f} after "
+    print(f"PestHandler: {staircase.threshold:6.2f} after "
           f"{len(staircase.data)} trials")
 
 
